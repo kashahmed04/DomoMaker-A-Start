@@ -21,12 +21,19 @@ let AccountModel = {};
    characters), a password (actually the hashed version of the password created
    by bcrypt), and the created date.
 */
+//Remember that a Schema is a definition or blueprint 
+//of what data looks like. This is what allows us to know our
+//data is formatted correctly going into the database and what 
+//the variable names/types will be coming out of the database**
+
 const AccountSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
     trim: true,
     unique: true,
+    // The match field ensures users Regex to
+    // ensure that the username is alphanumeric and 1-16 characters.**
     match: /^[A-Za-z0-9_\-.]{1,16}$/,
   },
   password: {
@@ -40,6 +47,11 @@ const AccountSchema = new mongoose.Schema({
 });
 
 // Converts a doc to something we can store in redis later on.
+
+// Notice that the schema also has a few functions attached as
+// AccountSchema.statics. Anything attached to a 
+// schema in .statics is going to be
+// a function you can call through the Model**
 AccountSchema.statics.toAPI = (doc) => ({
   username: doc.username,
   _id: doc._id,
@@ -55,10 +67,16 @@ AccountSchema.statics.generateHash = (password) => bcrypt.hash(password, saltRou
    and hashed password to bcrypt's compare function. The compare function hashes the
    given password the same number of times as the stored password and compares the result.
 */
+
+// For example, the authenticate function in the Account.js Model is a static function
+// defined by the Schema. This means that you can call authenticate by calling
+// Account.authenticate from any file that pulls the account model in. Since it has been
+// attached to the Model through the Schema, the function has access to the database
+// but not a particular object.**
 AccountSchema.statics.authenticate = async (username, password, callback) => {
   try {
-    const doc = await AccountModel.findOne({username}).exec();
-    if(!doc) {
+    const doc = await AccountModel.findOne({ username }).exec();
+    if (!doc) {
       return callback();
     }
 

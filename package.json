@@ -18,12 +18,12 @@
     "Redis",
     "Login"
   ],
-  "author": "Cody Van De Mark / Austin Willoughby",
+  "author": "Kash Ahmed",
   "license": "Apache 2.0",
   "devDependencies": {
-    "eslint": "^8.57.0",
+    "eslint": "^8.57.1",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-import": "^2.31.0",
     "nodemon": "^3.1.0",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
