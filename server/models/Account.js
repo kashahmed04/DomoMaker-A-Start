@@ -21,10 +21,12 @@ let AccountModel = {};
    characters), a password (actually the hashed version of the password created
    by bcrypt), and the created date.
 */
-//Remember that a Schema is a definition or blueprint 
-//of what data looks like. This is what allows us to know our
-//data is formatted correctly going into the database and what 
-//the variable names/types will be coming out of the database**
+// Remember that a Schema is a definition or blueprint
+// of what data looks like. This is what allows us to know our
+// data is formatted correctly going into the database and what
+// the variable names/types will be coming out of the database
+// is it when we compress the data coming into the server
+// and out of the server back to the client**
 
 const AccountSchema = new mongoose.Schema({
   username: {
@@ -49,15 +51,17 @@ const AccountSchema = new mongoose.Schema({
 // Converts a doc to something we can store in redis later on.
 
 // Notice that the schema also has a few functions attached as
-// AccountSchema.statics. Anything attached to a 
+// AccountSchema.statics. Anything attached to a
 // schema in .statics is going to be
-// a function you can call through the Model**
+// a function you can call through the Model (without a variable referncing it or)**
 AccountSchema.statics.toAPI = (doc) => ({
   username: doc.username,
   _id: doc._id,
 });
 
 // Helper function to hash a password
+// hash the password based on the saltRounds (10 times) to secure our password
+// in the database (how many times should we usually hash)**
 AccountSchema.statics.generateHash = (password) => bcrypt.hash(password, saltRounds);
 
 /* Helper function for authenticating a password against one already in the
@@ -73,22 +77,30 @@ AccountSchema.statics.generateHash = (password) => bcrypt.hash(password, saltRou
 // Account.authenticate from any file that pulls the account model in. Since it has been
 // attached to the Model through the Schema, the function has access to the database
 // but not a particular object.**
+// go over**
+// why do we return a callback**
 AccountSchema.statics.authenticate = async (username, password, callback) => {
   try {
     const doc = await AccountModel.findOne({ username }).exec();
+    // username does not exist**
     if (!doc) {
       return callback();
     }
 
+    // if the password passed in the password we are finding based on
+    // the username match then**
     const match = await bcrypt.compare(password, doc.password);
     if (match) {
       return callback(null, doc);
     }
+    // passwords do not match**
     return callback();
   } catch (err) {
+    // error**
     return callback(err);
   }
 };
 
+// go over**
 AccountModel = mongoose.model('Account', AccountSchema);
 module.exports = AccountModel;
