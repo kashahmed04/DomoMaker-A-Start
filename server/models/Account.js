@@ -28,7 +28,7 @@ let AccountModel = {};
 // is it when we compress the data coming into the server
 // and out of the server back to the client**
 
-//go over**
+// go over**
 const AccountSchema = new mongoose.Schema({
   username: {
     type: String,

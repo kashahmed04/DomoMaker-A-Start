@@ -7,7 +7,7 @@
 // in that folder**
 const models = require('../models');
 
-const Domo = models.Domo;
+const { Domo } = models;
 
 const makerPage = (req, res) => {
   res.render('app');
