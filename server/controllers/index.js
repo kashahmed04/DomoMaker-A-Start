@@ -15,5 +15,9 @@
 // folder right because we use ./ for the same folder right**
 // we only use these in router.js for controllers and for models
 // we use the index.js files in the controllers files (account.js and domo.js)**
+// are we not supposed to see errors in console because I get the 500
+// for wrong datatypes in the console and network tab and I do not
+// see 400 error code when I enter nothing in console or network tab**
+
 module.exports.Account = require('./Account.js');
 module.exports.Domo = require('./Domo.js');

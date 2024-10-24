@@ -11,6 +11,9 @@
 // for login or sign up being directed to app page is the character creation page right**
 
 // go over cookies screenshot for domo maker B**
+// when I restart the server I cannot go back to logout page to log back in
+// and the server crashes and I have to restart the server is this what is supposed to happen**
+// step 17 and 20**
 
 // First, we need to add sessions so that we can accurately track who logged in and
 // who they are. In a stateless transaction, every transaction is new, so we need a ticket

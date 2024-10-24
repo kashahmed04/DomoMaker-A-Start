@@ -9,8 +9,26 @@ const models = require('../models');
 
 const { Domo } = models;
 
-const makerPage = (req, res) => {
-  res.render('app');
+// The next thing to do is to make sure we can actually see the Domos each user
+// makes. Change the makerPage function to grab all of the Domos for a particular user
+// (based on their user session 
+// ID which we stored in their session in sign up and login in
+// account.js in controllers)** and pass it to the view.
+// In the Domo controller, update the makerPage function with the following.
+const makerPage = async (req, res) => {
+  try{
+    //we need the {} when querying and when passing around json right**
+    //(Ex. return res.json({ redirect: '/maker' });)**
+    //go over**
+    const query = {owner: req.session.account._id};
+    const docs = await Domo.find(query).select('name age').lean().exec();
+
+    return res.render('app', {domos: docs});
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).json({error: 'Error rerieving domos!'});
+  }
 };
 
 // Next, we will make a makeDomo function and export it. This is very similar to our
@@ -28,7 +46,7 @@ const makerPage = (req, res) => {
 // what page to load. This is all setup and controlled by us.**
 
 // why is this async when do we know to make it async like we did for
-// signup in account.js in controllers**
+// signup in account.js in controllers and the makerPage() above**
 const makeDomo = async (req, res) => {
   if (!req.body.name || !req.body.age) {
     return res.status(400).json({ error: 'Both name and are are required!' });
