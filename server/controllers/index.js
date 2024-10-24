@@ -9,8 +9,11 @@
 // router does not have access to them since the default for calling the folder
 // only gives the index.js from controllers**
 
-// does the .Account allow us to access this file by .Account in router.js**
+// does the .Account allow us to access this file by
+// .Account in router.js same for Domo and Domo.js**
 // these are the files from the controllers
 // folder right because we use ./ for the same folder right**
+// we only use these in router.js for controllers and for models
+// we use the index.js files in the controllers files (account.js and domo.js)**
 module.exports.Account = require('./Account.js');
 module.exports.Domo = require('./Domo.js');

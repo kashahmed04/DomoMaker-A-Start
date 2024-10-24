@@ -28,6 +28,7 @@ let AccountModel = {};
 // is it when we compress the data coming into the server
 // and out of the server back to the client**
 
+//go over**
 const AccountSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -56,6 +57,7 @@ const AccountSchema = new mongoose.Schema({
 // a function you can call through the Model (without a variable referncing it or)**
 AccountSchema.statics.toAPI = (doc) => ({
   username: doc.username,
+  // where does id come from**
   _id: doc._id,
 });
 

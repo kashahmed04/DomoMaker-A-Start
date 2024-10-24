@@ -3,6 +3,9 @@
    end in an error.
 */
 
+//Remember since this is a client side JS file, it cannot communicate with the server 
+//(MVC is all server side except the view)** unless it is through fetch() or a similar system.
+
 // To build your client-side code into the bundle.js, run the following command in
 // Powershell or Terminal: “npm run webpack”. Note that /hosted/bundle.js is now a built
 // version of our client code that is automatically hosted as /assets/bundle.js because of
@@ -134,6 +137,10 @@ const init = () => {
         return false;
       }
 
+      //goes to /maker for action** (can only have one action when working
+      //like this)**
+      //fetch call expects a response in JSON for domo form or 
+      //sendPost()**
       sendPost(domoForm.getAttribute('action'), {name, age});
       return false;
     });

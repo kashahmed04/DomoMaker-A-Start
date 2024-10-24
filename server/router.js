@@ -15,6 +15,9 @@ const router = (app) => {
   // this only gives the page to the user to be able to create the character (no POST request)**
   app.get('/maker', controllers.Domo.makerPage);
 
+  // It will call the Domo Controller’s make function (which we have not made yet).
+  app.post('/maker', controllers.Domo.makeDomo);
+
   // default case**
   app.get('/', controllers.Account.loginPage);
 
