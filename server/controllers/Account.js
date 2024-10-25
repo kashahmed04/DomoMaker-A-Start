@@ -1,10 +1,9 @@
-
 // models only has access to index.js since we only called the folder right
 // then from that folder we want to access account.js in
 // the models folder so we do models.account to access it**
 const models = require('../models');
 
-const Account = models.Account;
+const { Account } = models;
 
 // we do this if we do not have any data to pass into varaibles in the HTML
 // if we do have things to pass into the varaibles in the HTML, then we have a second
@@ -18,7 +17,8 @@ const signupPage = (req, res) => res.render('signup');
 // session module, every request will have a session object in it that manages the
 // user’s session and session variables.
 // The destroy function will remove a user’s session. We call this on logout so that our
-// server knows they are no longer logged in (is this when save uninitailized comes in from app.js)**
+// server knows they are no longer logged in
+// (is this when save uninitailized comes in from app.js)**
 const logout = (req, res) => {
   req.session.destroy();
   res.redirect('/');
@@ -72,12 +72,11 @@ const login = (req, res) => {
 // if it is all there and the passwords match.**
 // why do we need async here and we do not in the other functions**
 const signup = async (req, res) => {
-
-  //there is no schema to check for a valid datatype
-  //so instead we make everything a string so we 
-  //can just make the new schema object out of it**
-  //what if we wanted the password to be a number would we just cast it as a number
-  //or how would we check its valid before making it an object in schema**
+  // there is no schema to check for a valid datatype
+  // so instead we make everything a string so we
+  // can just make the new schema object out of it**
+  // what if we wanted the password to be a number would we just cast it as a number
+  // or how would we check its valid before making it an object in schema**
   const username = `${req.body.username}`;
   const pass = `${req.body.pass}`;
   const pass2 = `${req.body.pass2}`;

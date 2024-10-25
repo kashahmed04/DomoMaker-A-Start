@@ -1,8 +1,8 @@
 const controllers = require('./controllers');
 
-//could we have done Domo = controllers.Domo; and Account = controllers.Account 
-//do we need the {} when defining variables or no because otherwise the variable
-//is not blue and it's green instead**
+// could we have done Domo = controllers.Domo; and Account = controllers.Account
+// do we need the {} when defining variables or no because otherwise the variable
+// is not blue and it's green instead**
 
 const router = (app) => {
   // these two GET and POST requests are responsible for getting the login or signup page for
@@ -16,10 +16,10 @@ const router = (app) => {
   // gives the user the logout page
   app.get('/logout', controllers.Account.logout);
 
-  // this the page to the user to be able to create the character 
+  // this the page to the user to be able to create the character
   app.get('/maker', controllers.Domo.makerPage);
 
-  // It will call the Domo Controller’s make function 
+  // It will call the Domo Controller’s make function
   app.post('/maker', controllers.Domo.makeDomo);
 
   // default case

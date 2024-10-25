@@ -82,9 +82,9 @@ AccountSchema.statics.generateHash = (password) => bcrypt.hash(password, saltRou
 // defined by the Schema. This means that you can call authenticate by calling
 // Account.authenticate from any file that pulls the account model in. Since it has been
 // attached to the Model through the Schema, the function has access to the database
-// but not a particular object 
+// but not a particular object
 // (so does this mean we have to get the object
-// first then use these functions for those specific objects like 
+// first then use these functions for those specific objects like
 // making a schema object based on the request values then using these functions like
 // we did in account.js in controllers or is it based on the request)**
 // go over**

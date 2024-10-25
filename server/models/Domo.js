@@ -1,6 +1,6 @@
 // so models sets up the schema up for the information in the database and
 // controllers works with that data and displays it with render
-// and the views are the pages to display and we display them based on 
+// and the views are the pages to display and we display them based on
 // router.js or handlebars or both**
 // and the index.js for both controllers and models are used to export the other files
 // from those folders to be used**
@@ -14,7 +14,7 @@ const setName = (name) => _.escape(name).trim();
 // go over**
 // this makes sure the data is the right type and length right for schemas
 // the data coming in and out of the server**
-// is this only when we create a new instance of the schema or how does this 
+// is this only when we create a new instance of the schema or how does this
 // all relate to controllers files**
 const DomoSchema = new mongoose.Schema({
   name: {
