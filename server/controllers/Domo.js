@@ -1,3 +1,4 @@
+
 // gives us index.js from models which holds the domo.js file and we
 // make a Domo variable to get the domo.js from the index.js in models**
 
@@ -5,10 +6,28 @@
 // and views displays the data from controllers (router.js or just the handlebars files)**
 // the index.js in controllers and models are used to export the other files
 // in that folder**
+// the schemas tell us how controllers can interact with the models 
+// and the controllers run on mongo and the views are handlabars and the library is under the hood
+// bakn is the model and data is in the model and us as controller has the layer of phone to interact
+// with the model and the model is the interface layer
+// bank has our model interface level is our phone that lets us talk to the model
+// models folder is not the model its the interface layer that talks to the model
+// browser is client 
+// we make a request to see the domos and the node/express says we do not know anything about domos
+// and it knows to go to interface layer or the domo model it contacts mongo and it says find
+// all the domos absed on the account id and asynchronously monoo says here and give it to server and 
+// now the data about the persons domos are stored in the node/express tempoarily until we say res.render to
+// go o handlebars and we render it with these specific domos with it and handlebars says here is the data we want for
+// the views then node/express gets that and gives it back to the browser**
+// controller asks for data from model and views then sends back the final response to the browser**
 const models = require('../models');
 
-//this shows up as green if I do not add the {} why**
-const { Domo } = models.Domo;
+//this shows up as green if I do not add the {} why and why does it 
+//not work if I use the {}**
+
+//const {Domo} = models grabs the domo from model already
+//and stores it 
+const Domo = models.Domo;
 
 // The next thing to do is to make sure we can actually see the Domos each user
 // makes. Change the makerPage function to grab all of the Domos for a particular user
@@ -21,7 +40,11 @@ const makerPage = async (req, res) => {
     // we need the {} when querying and when passing around json right**
     // (Ex. return res.json({ redirect: '/maker' });)**
     // go over**
+    // do we use ownder since in domo.js in models
+    // we reference account (what specificailly in account and is it
+    // from models or controllers)**
     const query = { owner: req.session.account._id };
+    //go over****
     const docs = await Domo.find(query).select('name age').lean().exec();
 
     return res.render('app', { domos: docs });
@@ -56,14 +79,17 @@ const makeDomo = async (req, res) => {
 
   // how do we know to access the _id from the account in session is it because
   // each request has a session when we make the object in app.js or**
-  // session is stored for each request right by default**
+  // session is stored for each request right by default or from the account.js
+  // model toAPI method**
   // there was nothing in req.session.account until we added the username and _id right**
   // in acount.js in controllers and models**
   // the req.session has the object we made in app.js**
+  // schamas are all JSON objects right**
   const domoData = {
     name: req.body.name,
     age: req.body.age,
     owner: req.session.account._id,
+    //we are keeping track of the owner based on the id
     // create date gets automatically added from the schema so we
     // do not need to add it when making our JSON objects right**
     // or is it because we had a default case for it if nothing was put in**

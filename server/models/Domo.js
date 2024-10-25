@@ -46,5 +46,7 @@ DomoSchema.statics.toAPI = (doc) => ({
   age: doc.age,
 });
 
+// this allows us to make a Domo schema object in controllers right
+// and we have to call it Domo right and what else (go over)**
 const DomoModel = mongoose.model('Domo', DomoSchema);
 module.exports = DomoModel;

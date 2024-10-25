@@ -1,5 +1,7 @@
+
 // Remember that this file gets automatically imported when the folder is imported.
 // Since we know this, we will make this file pull in other files we want in public scope.
+
 // since in router.js it has access to index.js since we called just the controllers folder and
 // also gets access to the files we call in this file as well**
 // do we just say controllers. the name of the file we want to use and
@@ -13,11 +15,8 @@
 // .Account in router.js same for Domo and Domo.js**
 // these are the files from the controllers
 // folder right because we use ./ for the same folder right**
-// we only use these exports in router.js for controllers and for models
+// we only use these in router.js for controllers and for models
 // we use the index.js files in the controllers files (account.js and domo.js)**
-// are we not supposed to see errors in console because I get the 500
-// for wrong datatypes in the console and network tab and I do not
-// see 400 error code when I enter nothing in console or network tab**
 
 module.exports.Account = require('./Account.js');
 module.exports.Domo = require('./Domo.js');

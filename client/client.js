@@ -29,7 +29,7 @@ const handleError = (message) => {
 // made by the various forms in the different views. Note that our sendPost function is
 // being used to send a fetch() request with a JSON body to the server (which is parsed
 // by body parser). When a response comes back, we currently look for a redirect
-// message or an error message from the server (go over)**
+// message or an error message from the server (from controllers in this case)**(go over)**
 // Additionally, we have a hidden domoMessage div that appears when a message
 // needs to be shown to the user.
 // go over**
@@ -45,7 +45,9 @@ const sendPost = async (url, data) => {
   const result = await response.json();
 
   //is domo message just images we show at one time with an error message or not**
-  //is this file generalized to all the handlbars files or how does it know which one to access**
+  //is this file generalized to all the handlbars files or how does it know which one to access
+  //is it because of the redirect link we get from controllers (not router.js) then doing the
+  //action in that handlebars file to show the page**
   //why do we need this when it is already hidden by default in the handlebars files**
   document.getElementById('domoMessage').classList.add('hidden');
 

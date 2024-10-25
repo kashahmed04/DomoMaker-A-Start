@@ -1,32 +1,4 @@
 
-// why is connection string not working on mongoDB compass and heroku for submission**
-// it is still putting the simple models assignment on mongoDB compass**
-// go over mongoDB compass and how to submit to heroku**
-// what is build and building scripts saying in rubric**
-// we should be able to connect and disconnect from the server and restart
-// it and the data should still be perserved right for login and signup**
-// is build penalty basically not changing the package.json and having the webpack**
-// there are not any of the examples listed in my package.json for build penalty**
-// how to check if router works correctly (by checking each pathname from router and making
-// sure the page shows up)**
-// for the app working correctly we should be able to access each page listed in router.js right**
-
-// go over cookies screenshot for domo maker B**
-// when I restart the server I cannot go back to logout page to log back in
-// and the server crashes and I have to restart the server is this what is supposed to happen**
-// step 17 and 20**
-// go over terminal for making domos all cases**
-// why does the server crash when I make a domo sometimes and it fails to POST**
-// get random error from terminal but server still works when I start the server
-// (TypeError: Cannot read properties of undefined (reading '_id'))
-// then it does not work when I do a POST request**
-// are we not supposed to see errors in console because I get the 500
-// for wrong datatypes in the console and network tab and I do not
-// see 400 error code when I enter nothing in console or network tab**
-
-// are we supposed to set up local version of mongoDB on mongoDB compass as well
-// when uploading to heroku**
-
 // First, we need to add sessions so that we can accurately track who logged in and
 // who they are. In a stateless transaction, every transaction is new, so we need a ticket
 // to identify this person. We use sessions to handle that for us.
@@ -42,6 +14,20 @@
 
 // cookies are basically used for sessions and to log a user out if they are
 // logged in for too long with or without activity**
+
+// cookie is a key value that the client has and a session is server side rather than
+// forcing the user to send their username and password with every request 
+// so we store who they are to make it easier for them so they do not have to login
+// for each request
+// we send the username and password and we say it is tracked that we have logged in
+// and we have a session_id server side so we can do the request and the session
+// id is sent back each request so we know which user is changing the data 
+// session is persisted in the server in memeory but in domo maker C it will be persisted in 
+// redis and the session is an object req.session.account is what we set in account.js
+// and we can put anything in there that we want to keep track of the user 
+// toAPI takes the account and stores the data and that gets put into the session
+// and when someone connects we can look at their req.session.account._id and it allows
+// us to ties their data to the session id
 
 // Cookies are just key:value pairs set by the server or browser for tracking purposes.
 
@@ -64,12 +50,13 @@ const expressHandlebars = require('express-handlebars');
 // brief descriptions.
 // Helmet: a security library for express. Sets a bunch of default options for us to
 // obscure information from malicious attacks (what kind of attacks)**
+// library that adds a bunch of security that is not there by default 
 const helmet = require('helmet');
 
 const session = require('express-session');
 
-// ../ means go up a folder but ./ means in the same folder right**
-// and / means go to the root directory right**
+// ../ means go up a folder but ./ means in the same folder right
+// and / means go to the root directory right (yes)
 const router = require('./router.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
@@ -103,28 +90,62 @@ app.use(bodyParser.json());
 // Once it is configured, the session module will add a
 // session object to every request object which can be accessed by saying
 // “req.session”. This session object can be used to track and store information unique
-// to that user between requests.**
+// to that user between requests.** (is the id given or do we make that in
+// account.js in models and controllers for login and signup and access that by doing
+// req.session.account._id or username)**
 app.use(session({
   // name of our cookie so it can be tracked in requests
   // when the browser sends requests the cookies will come as well
   // the key tells our session module which cookie to look for when
   // looking for a session cookie (we can have multiple sessions set up for)**
   // for security purposes we should use a key name
+  // sessionid is the name of the id for the cookie 
+  // the req.session.account._id is the id from mongoDB and it's
+  // from mongo
   key: 'sessionid',
   // private string used as a seed for hashing/creating unique session keys
   // this makes it so our unique session keys are different
   // from other servers using express
   // The secret can be changed to anything you want, but will invalidate
-  // existing session ids (which isn’t necessarily a huge issue)**
+  // existing session ids (which isn’t necessarily a huge issue)
+  // when we move to redis all of the sessions will be in redis even if
+  // the server starts and stops (login and it gets persisted in redis and change
+  // the secret then it will log us out and the session will not be persisted)
+  // secret is test and if someone logs into the server and if we generate a random
+  // sessionid or url and if we give them the id of 123 and we take 123
+  // and we also add into it test and it gets hashed and this is now the id we send back to the
+  // user and now in redis we saw the sessionid is the hashed code and when we stop the server it
+  // all goes away and we change the secret to test and we restart the server and we say
+  // the sessionid is 123 then we say 123 then add hello to it and it gets hashed again
+  // and this is the sessionid with the server and if we see the id for the user based on
+  // test it will not esxist since we changed the thing to hello and it says 
+  // we have not logged in correctly because of the sessionid (we have to login
+  // with each new session)
+  // to invalidate every sessionid we change the secret for security breaches etc.
+  // since we do not use redis for now, then if we stop the server the sessions will
+  // be deleted so we do not have to worry about it 
   secret: 'Domo Arigato',
   // set to false tells the session library to only send the session key
   // back to the databse if it changes
   // if it were true then we would generate a lot of databse
   // requests that are unecessary (when do we set it to true)**
+  // we don't normally persist sessions in servers so right now it's stateful
+  // and depending on 
+  // inside the middlware if resave is set to true everytime the user makes a request
+  //even if we do not modify we resave it in the databse and if we keep track of a lifetime
+  //foreach it will be good but if we do not do resave and we do not
+  //save for each 
+  //even if the session did not change it will save it even though the 
+  //session did not chance but false makes it get saved when the session is changed
   resave: false,
   // The saveUninitialized option set to false prevents us
-  // from saving uninitialized sessionids to the database (invalid session types
-  // or session types that do not exist yet)**
+  // from saving uninitialized sessionids to the database (if the user does not have 
+  // and id and this is just if there is an id and we have not done anything yet)
+  // saveuninitialized says if we made the id and we have not used the id, 
+  // do not save it into the database and keep it locally and we do this because
+  // if we are generating an id for every person that connects even if they are not logged
+  // in it's a waste of space and if they have not logged in then do not
+  // keep a session for them, otherwise keep the session
   saveUninitialized: false,
 }));
 

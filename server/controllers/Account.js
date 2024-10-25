@@ -4,7 +4,7 @@
 // the models folder so we do models.account to access it**
 const models = require('../models');
 
-const { Account } = models;
+const Account = models.Account;
 
 // we do this if we do not have any data to pass into varaibles in the HTML
 // if we do have things to pass into the varaibles in the HTML, then we have a second
@@ -18,7 +18,7 @@ const signupPage = (req, res) => res.render('signup');
 // session module, every request will have a session object in it that manages the
 // user’s session and session variables.
 // The destroy function will remove a user’s session. We call this on logout so that our
-// server knows they are no longer logged in (is there save uninitailized comes in from app.js)**
+// server knows they are no longer logged in (is this when save uninitailized comes in from app.js)**
 const logout = (req, res) => {
   req.session.destroy();
   res.redirect('/');
@@ -27,7 +27,9 @@ const logout = (req, res) => {
 // Similar to signup, we make sure we have all the data then we call the Model to
 // handle the database entry for us. We are calling the Model’s static authenticate
 // function. Again, to see how this works, just look at the function in the Account Model
-// why don't we have to say AccountSchema.statics.authenticate like it is in account.js in models**
+// why don't we have to say AccountSchema.statics.authenticate like it is in account.js in models
+// because we can just call account when we use statics then the name
+// of the function**
 
 // As mentioned previously, the req.session object also allows you to store data in the
 // session about the user. You will not want to store a ton of data in the session object
@@ -104,12 +106,12 @@ const signup = async (req, res) => {
     // Since the user is signing up and being logged in
     // automatically, we need to duplicate the account data in the session just like they had
     // logged in.**
-    // do we also put a new id or an existing one from**
+    // do we also put a new id or an existing one from (are the two id's now for a user)**
     // this is for each request the username and session id will be attached right
     // and by default the session will be attached to each request for the specific user**
     // when we call req.session.account we can call ._id or .username
     // to access data with each request in controllers files only since it deals
-    // with the data from model**
+    // with the data from model (we put data into the .account)**
     req.session.account = Account.toAPI(newAccount);
 
     // Provided the save works, we will send the user a redirect message that sends them
