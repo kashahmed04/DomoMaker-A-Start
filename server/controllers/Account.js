@@ -50,7 +50,11 @@ const login = (req, res) => {
     return res.status(400).json({ error: 'All fields are required!' });
   }
 
+  // passes back everything in an account if it the passwords do match
   return Account.authenticate(username, pass, (err, account) => {
+    // if there is an error (catch in account.js models) or
+    // if there is no account because of the blank callback then we
+    // go through this conditional**
     if (err || !account) {
       return res.status(401).json({ error: 'Wrong username or password!' });
     }

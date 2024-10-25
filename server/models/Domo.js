@@ -9,6 +9,10 @@ const mongoose = require('mongoose');
 // what does this do**
 const _ = require('underscore');
 
+// injection attack is common and they say what is the name of their domo
+// and escape says if there are any characters that would be used for a request
+// it ensures it makes sure it evaluates as code and trim removes
+// the whitespace after
 const setName = (name) => _.escape(name).trim();
 
 // go over**
@@ -31,6 +35,8 @@ const DomoSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,
+    // we have to know which domo is owned by each person so we
+    // use account
     ref: 'Account',
   },
   createDate: {
@@ -48,5 +54,6 @@ DomoSchema.statics.toAPI = (doc) => ({
 
 // this allows us to make a Domo schema object in controllers right
 // and we have to call it Domo right and what else (go over)**
+// tells the database we want data to be represented this way and we talk to the database this way
 const DomoModel = mongoose.model('Domo', DomoSchema);
 module.exports = DomoModel;

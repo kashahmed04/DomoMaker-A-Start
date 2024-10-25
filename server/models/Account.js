@@ -59,6 +59,10 @@ const AccountSchema = new mongoose.Schema({
 // a function you can call through the Model (with a variable referncing it from controllers
 // like we did in account.js in controllers)**
 // like how we access toAPI, generateHash, and authenticate in account.js in controllers**
+// static function are built into the model itself and it
+// gets moveed around with the model so we can use it as
+// the name of the variable we have for this file in account.js in controller then
+// use the function
 AccountSchema.statics.toAPI = (doc) => ({
   username: doc.username,
   // where does id come from**

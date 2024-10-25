@@ -51,6 +51,8 @@ const sendPost = async (url, data) => {
   //why do we need this when it is already hidden by default in the handlebars files**
   document.getElementById('domoMessage').classList.add('hidden');
 
+  //if we get back a response that says redirect we redirect to the page
+  //and makes the request to the page to display it
   if(result.redirect) {
     window.location = result.redirect;
   }
@@ -79,6 +81,10 @@ const init = () => {
  //go over same for loginform and domoform**
  //why do we return false after doing sendPost() for all of them**
  //why do we add classlist hidden when they are already hidden in the HTML files**
+ //checks server side to prevent creating an account from postman and 
+ //we need validation server side to make sure someone is not making a malicious attack
+ //and we need it server side so we do not have to go
+ //all the way to the server to check when we could check in the client instead
   if(signupForm) {
     signupForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -149,6 +155,9 @@ const init = () => {
       //fetch call expects a response in JSON for domo form or 
       //sendPost()(all forms are JSON since the schemas are in JSON already in models
       //and we work with that in the controllers files)**
+
+      //makes a fetch request to the server based on the action then the data is given back 
+      //from the server then we can display it 
       sendPost(domoForm.getAttribute('action'), {name, age});
       return false;
     });
