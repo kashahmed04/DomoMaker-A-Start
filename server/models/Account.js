@@ -25,6 +25,7 @@ let AccountModel = {};
 // of what data looks like. This is what allows us to know our
 // data is formatted correctly going into the database and what
 // the variable names/types will be coming out of the database
+
 // is it when we compress the data coming into the server
 // and out of the server back to the client**
 
@@ -54,7 +55,9 @@ const AccountSchema = new mongoose.Schema({
 // Notice that the schema also has a few functions attached as
 // AccountSchema.statics. Anything attached to a
 // schema in .statics is going to be
-// a function you can call through the Model (without a variable referncing it or)**
+// a function you can call through the Model (with a variable referncing it from controllers
+// like we did in account.js in controllers)**
+// like how we access toAPI, generateHash, and authenticate in account.js in controllers**
 AccountSchema.statics.toAPI = (doc) => ({
   username: doc.username,
   // where does id come from**
@@ -78,7 +81,10 @@ AccountSchema.statics.generateHash = (password) => bcrypt.hash(password, saltRou
 // defined by the Schema. This means that you can call authenticate by calling
 // Account.authenticate from any file that pulls the account model in. Since it has been
 // attached to the Model through the Schema, the function has access to the database
-// but not a particular object.**
+// but not a particular object (so does this mean we have to get the object
+// first then use these functions for those specific objects like 
+// making a schema object based on the request values then using these functions like
+// we did in account.js in controllers or is it based on the request)**
 // go over**
 // why do we return a callback**
 AccountSchema.statics.authenticate = async (username, password, callback) => {

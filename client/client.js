@@ -12,6 +12,8 @@
 // our static file hosting line in app.js (go over webpack and bundle.js)**
 // app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));**
 
+//go over all**
+
 // Now we need to make sure we can create accounts and login successfully.
 // This is what the JS browser side will be doing
 const handleError = (message) => {
@@ -27,9 +29,10 @@ const handleError = (message) => {
 // made by the various forms in the different views. Note that our sendPost function is
 // being used to send a fetch() request with a JSON body to the server (which is parsed
 // by body parser). When a response comes back, we currently look for a redirect
-// message or an error message (go over)**
+// message or an error message from the server (go over)**
 // Additionally, we have a hidden domoMessage div that appears when a message
 // needs to be shown to the user.
+// go over**
 const sendPost = async (url, data) => {
   const response = await fetch(url, {
     method: 'POST',
@@ -58,6 +61,7 @@ const sendPost = async (url, data) => {
 /* Entry point of our client code. Runs when window.onload fires.
    Sets up the event listeners for each form across the whole app.
 */
+//go over**
 const init = () => {
   const signupForm = document.getElementById('signupForm');
   const loginForm = document.getElementById('loginForm');
@@ -72,6 +76,7 @@ const init = () => {
  //we already put the checks in controllers account.js**
  //go over same for loginform and domoform**
  //why do we return false after doing sendPost() for all of them**
+ //why do we add classlist hidden when they are already hidden in the HTML files**
   if(signupForm) {
     signupForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -140,7 +145,8 @@ const init = () => {
       //goes to /maker for action** (can only have one action when working
       //like this)**
       //fetch call expects a response in JSON for domo form or 
-      //sendPost()**
+      //sendPost()(all forms are JSON since the schemas are in JSON already in models
+      //and we work with that in the controllers files)**
       sendPost(domoForm.getAttribute('action'), {name, age});
       return false;
     });
