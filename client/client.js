@@ -33,6 +33,9 @@ const handleError = (message) => {
 // Additionally, we have a hidden domoMessage div that appears when a message
 // needs to be shown to the user.
 // go over**
+// do we come here first when we recieve a POST request only or where do we go first
+// and we usually use the redirect (return res.json({ redirect: '/maker' });)
+// in our server for POST requests only right****
 const sendPost = async (url, data) => {
   const response = await fetch(url, {
     method: 'POST',
@@ -137,6 +140,13 @@ const init = () => {
      the form. It will throw an error if one or both are missing.
      Otherwise, it will send the request to the server.
   */
+ //this sends us to send post then we make the request a JSON object then
+ //we sent it to the server (await fetch())****
+ //to the do the rest in the server (models and views) then we wait for the response
+ //from the server and convert the response to JSON
+ //(const result = await response.json();) then redirect the user
+ //to the correct page on the browser****
+ //go over in terms of diagram on photo****
   if(domoForm) {
     domoForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -159,6 +169,7 @@ const init = () => {
       //makes a fetch request to the server based on the action then the data is given back 
       //from the server then we can display it 
       sendPost(domoForm.getAttribute('action'), {name, age});
+      //how did we know to return false****
       return false;
     });
   }

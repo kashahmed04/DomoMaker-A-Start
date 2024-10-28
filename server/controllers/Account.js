@@ -66,6 +66,7 @@ const login = (req, res) => {
     // do we attach a new id or is it already in the users data for the session**
     req.session.account = Account.toAPI(account);
 
+    // how does it know which /maker to go to (the GET or the POST)****
     return res.json({ redirect: '/maker' });
   });
 };
@@ -99,6 +100,7 @@ const signup = async (req, res) => {
     // in that file and we can use that varible.name of the function()
     // to use that function in models (we usually do this in the controllers files to
     // work with the data)**
+    // how did we know to use async/await here with generatehash()****
     const hash = await Account.generateHash(pass);
     // create a new user in the database (the account schema)** and save it in the database**
     // this is where to check occurs to make sure everything is a string based
@@ -108,7 +110,7 @@ const signup = async (req, res) => {
 
     // Since the user is signing up and being logged in
     // automatically, we need to duplicate the account data in the session just like they had
-    // logged in.**
+    // logged in (2 _id's and usernames or two objects get created)****
     // do we also put a new id or an existing one from (are the two id's now for a user)**
     // this is for each request the username and session id will be attached right
     // and by default the session will be attached to each request for the specific user**

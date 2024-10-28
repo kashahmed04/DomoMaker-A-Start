@@ -64,6 +64,7 @@ const AccountSchema = new mongoose.Schema({
 // the name of the variable we have for this file in account.js in controller then
 // use the function
 AccountSchema.statics.toAPI = (doc) => ({
+  // why do we need to put username here if we never use it****
   username: doc.username,
   // where does id come from**
   _id: doc._id,
@@ -117,6 +118,6 @@ AccountSchema.statics.authenticate = async (username, password, callback) => {
 
 // go over**
 // this allows us to make a new schema by using Account (new Account instead
-// of new AccountSchema and what else)**
+// of new AccountSchema and what else)****
 AccountModel = mongoose.model('Account', AccountSchema);
 module.exports = AccountModel;

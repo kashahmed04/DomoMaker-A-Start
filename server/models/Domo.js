@@ -12,7 +12,7 @@ const _ = require('underscore');
 // injection attack is common and they say what is the name of their domo
 // and escape says if there are any characters that would be used for a request
 // it ensures it makes sure it evaluates as code and trim removes
-// the whitespace after
+// the whitespace after****
 const setName = (name) => _.escape(name).trim();
 
 // go over**
@@ -25,6 +25,7 @@ const DomoSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    // does this mean this function runs for each name****
     set: setName,
   },
   age: {
@@ -33,6 +34,7 @@ const DomoSchema = new mongoose.Schema({
     required: true,
   },
   owner: {
+    // use the _id based on the user
     type: mongoose.Schema.ObjectId,
     required: true,
     // we have to know which domo is owned by each person so we
@@ -46,7 +48,7 @@ const DomoSchema = new mongoose.Schema({
 });
 
 // this is a different toAPI than the account.js one**
-// we do not use this yet will we use it eventually**
+// we do not use this yet will we use it eventually****
 DomoSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
@@ -54,6 +56,8 @@ DomoSchema.statics.toAPI = (doc) => ({
 
 // this allows us to make a Domo schema object in controllers right
 // and we have to call it Domo right and what else (go over)**
-// tells the database we want data to be represented this way and we talk to the database this way
+// tells the database we want data to be represented this way as a model (name of the data
+// is Domo and we use the schema to create new Domo objects)**** with the schema
+// and we talk to the database this way by exporting the model interface****
 const DomoModel = mongoose.model('Domo', DomoSchema);
 module.exports = DomoModel;

@@ -112,7 +112,10 @@ const makeDomo = async (req, res) => {
   try {
     const newDomo = new Domo(domoData);
     await newDomo.save();
-    // go over redirect and how it works in router.js and client.js**
+    // how does it know /maker to go to since we have two of them
+    // is it based on the functtion we are in****
+    // since we use a .save() which uses promise.then() or async/await we
+    // need to use this function
     return res.json({ redirect: '/maker' });
   } catch (err) {
     console.log(err);
